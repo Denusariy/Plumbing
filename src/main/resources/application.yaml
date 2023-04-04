@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/plumbing_db
+    username: postgres
+    password: parolsql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show_sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        format_sql: true
