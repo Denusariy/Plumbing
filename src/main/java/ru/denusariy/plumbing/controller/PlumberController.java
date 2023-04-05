@@ -21,14 +21,14 @@ public class PlumberController {
                 .body(plumberService.findOne(id));
     }
 
-    @PostMapping("/hire")
+    @PostMapping()
     public ResponseEntity<PlumberResponseDTO> create(@RequestBody PlumberRequestDTO newPlumber) {
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(plumberService.save(newPlumber));
     }
 
-    @DeleteMapping("/fire/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") int id) {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_PLAIN)

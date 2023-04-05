@@ -5,7 +5,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.denusariy.plumbing.domain.dto.request.HouseRequestDTO;
-import ru.denusariy.plumbing.domain.dto.request.PlumberRequestDTO;
 import ru.denusariy.plumbing.domain.dto.response.HouseResponseDTO;
 import ru.denusariy.plumbing.service.HouseService;
 
@@ -22,14 +21,14 @@ public class HouseController {
                 .body(houseService.findOne(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping()
     public ResponseEntity<HouseResponseDTO> create(@RequestBody HouseRequestDTO newHouse) {
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(houseService.save(newHouse));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") int id) {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_PLAIN)
@@ -38,10 +37,10 @@ public class HouseController {
 
     @PostMapping("/assign/{id}")
     public ResponseEntity<String> assign(@PathVariable("id") int houseId,
-                                         @ModelAttribute("plumber")PlumberRequestDTO plumber) {
+                                         @ModelAttribute("plumber") String plumberName) {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_PLAIN)
-                .body(houseService.assign(houseId, plumber));
+                .body(houseService.assign(houseId, plumberName));
     }
 
     @PostMapping("/release/{id}")

@@ -6,7 +6,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.denusariy.plumbing.domain.dto.request.HouseRequestDTO;
-import ru.denusariy.plumbing.domain.dto.request.PlumberRequestDTO;
 import ru.denusariy.plumbing.domain.dto.response.HouseResponseDTO;
 import ru.denusariy.plumbing.domain.entity.House;
 import ru.denusariy.plumbing.domain.entity.Plumber;
@@ -53,18 +52,17 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional
-    public String assign(int houseId, PlumberRequestDTO plumber) {
-        String name = plumber.getName();
-        Plumber appointed = plumberRepository.findByNameEquals(name).orElseThrow(() ->
-                new PlumberNotFoundException(String.format("Сантехник с именем %s не найден", name)));
+    public String assign(int houseId, String plumberName) {
+        Plumber appointed = plumberRepository.findByNameEquals(plumberName).orElseThrow(() ->
+                new PlumberNotFoundException(String.format("Сантехник с именем %s не найден", plumberName)));
+        if(appointed.getHouses().size() == 5)
+            throw new OutOfHousesLimitException("Сантехник может обслуживать не более 5 домов. Следует назначить " +
+                    "другого специалиста.");
         House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseNotFoundException(
                 String.format("Дом с id %d не найден", houseId)));
         house.setPlumber(appointed);
-        if(appointed.getHouses().size() > 5)
-            throw new OutOfHousesLimitException("Сантехник может обслуживать не более 5 домов. Следует назначить " +
-                    "другого специалиста.");
-        log.info(String.format("По адресу %s назначен сантехник %s", house.getAddress(), name));
-        return name;
+        log.info(String.format("По адресу %s назначен сантехник %s", house.getAddress(), plumberName));
+        return plumberName;
     }
 
     @Override

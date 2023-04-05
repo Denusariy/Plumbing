@@ -38,7 +38,7 @@ public class PlumberServiceImpl implements PlumberService {
                 String.format("Сантехник с id %d не найден", id)));
         String name = plumber.getName();
         plumberRepository.delete(plumber);
-        log.info("Удален сантехник по имени " + name); //TODO проверить, надо ли освобождать дома
+        log.info("Удален сантехник по имени " + name);
         return name;
     }
 
