@@ -1,5 +1,6 @@
 package ru.denusariy.plumbing.domain.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "house")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class House {
     @Id
     @GeneratedValue
