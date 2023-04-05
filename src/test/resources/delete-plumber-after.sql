@@ -1,0 +1,1 @@
+delete from plumbing_db_test.public.plumber;

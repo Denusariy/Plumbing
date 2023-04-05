@@ -1,0 +1,1 @@
+insert into plumbing_db_test.public.plumber(id, name) values (1, 'Mario');

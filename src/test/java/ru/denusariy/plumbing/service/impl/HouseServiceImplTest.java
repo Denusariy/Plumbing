@@ -231,6 +231,7 @@ class HouseServiceImplTest {
                     () -> assertNull(house.getPlumber())
             );
         }
+
         @Test
         void should_ThrowHouseNotFoundException_When_IdIsNotPresent() {
             //given

@@ -14,7 +14,7 @@ public class HouseResponseDTO {
     private PlumberResponseDTO plumber;
 
     public String getPlumber() {
-        if(plumber == null)
+        if (plumber == null)
             return null;
         return plumber.getName();
     }

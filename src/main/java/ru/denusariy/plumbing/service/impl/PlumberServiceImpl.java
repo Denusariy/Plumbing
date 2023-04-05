@@ -11,12 +11,14 @@ import ru.denusariy.plumbing.domain.entity.Plumber;
 import ru.denusariy.plumbing.exception.PlumberNotFoundException;
 import ru.denusariy.plumbing.repository.PlumberRepository;
 import ru.denusariy.plumbing.service.PlumberService;
+
 @Service
 @Log4j2
 @RequiredArgsConstructor
 public class PlumberServiceImpl implements PlumberService {
     private final PlumberRepository plumberRepository;
     private final ModelMapper modelMapper;
+
     @Override
     @Transactional(readOnly = true)
     public PlumberResponseDTO findOne(int id) {
@@ -47,6 +49,6 @@ public class PlumberServiceImpl implements PlumberService {
     }
 
     public PlumberResponseDTO convertToDTO(Plumber plumber) {
-        return modelMapper.map(plumber,PlumberResponseDTO.class);
+        return modelMapper.map(plumber, PlumberResponseDTO.class);
     }
 }

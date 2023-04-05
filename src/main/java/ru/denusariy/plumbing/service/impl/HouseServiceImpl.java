@@ -55,7 +55,7 @@ public class HouseServiceImpl implements HouseService {
     public String assign(int houseId, String plumberName) {
         Plumber appointed = plumberRepository.findByNameEquals(plumberName).orElseThrow(() ->
                 new PlumberNotFoundException(String.format("Сантехник с именем %s не найден", plumberName)));
-        if(appointed.getHouses().size() == 5)
+        if (appointed.getHouses().size() == 5)
             throw new OutOfHousesLimitException("Сантехник может обслуживать не более 5 домов. Следует назначить " +
                     "другого специалиста.");
         House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseNotFoundException(

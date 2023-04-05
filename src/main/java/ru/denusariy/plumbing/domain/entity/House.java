@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "house")
+@Table(schema = "public", name = "house")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class House {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "address")
@@ -22,7 +22,4 @@ public class House {
     @JoinColumn(name = "plumber_id", referencedColumnName = "id")
     private Plumber plumber;
 
-    public House(String address) {
-        this.address = address;
-    }
 }

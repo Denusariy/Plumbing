@@ -44,7 +44,7 @@ public class HouseController {
     }
 
     @PostMapping("/release/{id}")
-    public ResponseEntity<String> release(@PathVariable("id") int houseId){
+    public ResponseEntity<String> release(@PathVariable("id") int houseId) {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_PLAIN)
                 .body(houseService.release(houseId));

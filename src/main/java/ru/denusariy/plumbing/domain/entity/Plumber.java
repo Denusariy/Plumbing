@@ -6,14 +6,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
-@Table(name = "plumber")
+@Table(schema = "public", name = "plumber")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Plumber {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "name")
@@ -21,7 +22,4 @@ public class Plumber {
     @OneToMany(mappedBy = "plumber")
     private List<House> houses;
 
-    public Plumber(String name) {
-        this.name = name;
-    }
 }
