@@ -6,19 +6,19 @@ services:
       context: .
     container_name: plumbing-service
     depends_on:
-      - db
+      - postgrad
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/plumbing_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgrad:5432/plumbing_db
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=parolsql
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
     ports:
       - "8585:8080/tcp"
 
-  db:
+  postgrad:
     image: postgres:15.1
-    container_name: db
+    container_name: postgrad
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=parolsql
