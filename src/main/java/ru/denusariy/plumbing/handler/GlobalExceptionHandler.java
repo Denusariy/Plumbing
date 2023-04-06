@@ -11,19 +11,19 @@ import ru.denusariy.plumbing.exception.PlumberNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler
+    @ExceptionHandler({HouseNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponseDTO handle(HouseNotFoundException e) {
         return new ErrorResponseDTO(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
-    @ExceptionHandler
+    @ExceptionHandler({PlumberNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponseDTO handle(PlumberNotFoundException e) {
         return new ErrorResponseDTO(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
-    @ExceptionHandler
+    @ExceptionHandler({OutOfHousesLimitException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponseDTO handle(OutOfHousesLimitException e) {
         return new ErrorResponseDTO(HttpStatus.BAD_REQUEST, e.getMessage());
