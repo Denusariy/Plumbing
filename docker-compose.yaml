@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  plumbing-service:
+    image: plumbing-api:latest
+    build:
+      context: .
+    container_name: plumbing-service
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/plumbing_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=parolsql
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - "8585:8080/tcp"
+
+  db:
+    image: postgres:15.1
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=parolsql
+      - POSTGRES_DB=plumbing_db
+    volumes:
+      - ./postgresdata:/var/lib/postgresql/data
+    ports:
+      - "5485:5432/tcp"
+
