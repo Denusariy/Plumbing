@@ -26,5 +26,5 @@ services:
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
     ports:
-      - "5485:5432/tcp"
+      - "5432:5432/tcp"
 
