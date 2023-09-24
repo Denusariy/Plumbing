@@ -1,9 +1,13 @@
+server:
+  port: 7777
 spring:
+  application:
+    name: plumbing_service
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/plumbing_db
     username: postgres
-    password: parolsql
+    password: pwd
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,3 +16,26 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+management:
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+    tags:
+      application: ${spring.application.name}
+
+springdoc:
+  api-docs:
+    path: /api-docs

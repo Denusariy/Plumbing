@@ -1,16 +1,22 @@
 package ru.denusariy.plumbing.service;
 
+import ru.denusariy.plumbing.domain.dto.request.AssignPlumberDto;
 import ru.denusariy.plumbing.domain.dto.request.HouseRequestDTO;
+import ru.denusariy.plumbing.domain.dto.request.HouseToRepairDto;
+import ru.denusariy.plumbing.domain.dto.response.AssignedPlumberDto;
 import ru.denusariy.plumbing.domain.dto.response.HouseResponseDTO;
+import ru.denusariy.plumbing.domain.dto.response.RepairedHouseDto;
 
 public interface HouseService {
-    HouseResponseDTO findOne(int id);
+    HouseResponseDTO findOne(Long id);
 
     HouseResponseDTO save(HouseRequestDTO newHouse);
 
-    String delete(int id);
+    String delete(Long id);
 
-    String assign(int houseId, String plumber);
+    AssignedPlumberDto assignPlumberToHouse(AssignPlumberDto assignPlumberDto);
 
-    String release(int houseId);
+    String release(Long houseId);
+
+    RepairedHouseDto repairHouse(HouseToRepairDto repairDto);
 }

@@ -11,11 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class HouseResponseDTO {
     private String address;
-    private PlumberResponseDTO plumber;
-
-    public String getPlumber() {
-        if (plumber == null)
-            return null;
-        return plumber.getName();
-    }
+    private Long houseBudget;
 }

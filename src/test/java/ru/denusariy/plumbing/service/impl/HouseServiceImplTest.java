@@ -169,7 +169,7 @@ class HouseServiceImplTest {
             when(plumberRepositoryMock.findByNameEquals("Petrovich")).thenReturn(Optional.of(plumber));
             when(houseRepositoryMock.findById(1)).thenReturn(Optional.of(house));
             //when
-            String actual = houseService.assign(1, "Petrovich");
+            String actual = houseService.assignPlumberToHouse(1, "Petrovich");
             //then
             assertAll(
                     () -> assertEquals(expected, actual),
@@ -183,7 +183,7 @@ class HouseServiceImplTest {
             when(plumberRepositoryMock.findByNameEquals("Petrovich")).thenReturn(Optional.of(plumber));
             when(houseRepositoryMock.findById(anyInt())).thenThrow(HouseNotFoundException.class);
             //when
-            Executable executable = () -> houseService.assign(anyInt(), "Petrovich");
+            Executable executable = () -> houseService.assignPlumberToHouse(anyInt(), "Petrovich");
             //then
             assertThrows(HouseNotFoundException.class, executable);
         }
@@ -193,7 +193,7 @@ class HouseServiceImplTest {
             //given
             when(plumberRepositoryMock.findByNameEquals(anyString())).thenThrow(PlumberNotFoundException.class);
             //when
-            Executable executable = () -> houseService.assign(1, anyString());
+            Executable executable = () -> houseService.assignPlumberToHouse(1, anyString());
             //then
             assertThrows(PlumberNotFoundException.class, executable);
         }
@@ -208,7 +208,7 @@ class HouseServiceImplTest {
             plumber.getHouses().add(new House(6, "address5", plumber));
             when(plumberRepositoryMock.findByNameEquals("Petrovich")).thenReturn(Optional.of(plumber));
             //when
-            Executable executable = () -> houseService.assign(anyInt(), "Petrovich");
+            Executable executable = () -> houseService.assignPlumberToHouse(anyInt(), "Petrovich");
             //then
             assertThrows(OutOfHousesLimitException.class, executable);
         }

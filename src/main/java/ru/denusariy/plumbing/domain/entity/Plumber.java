@@ -1,15 +1,19 @@
 package ru.denusariy.plumbing.domain.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(schema = "public", name = "plumber")
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Plumber {
@@ -22,4 +26,6 @@ public class Plumber {
     @OneToMany(mappedBy = "plumber")
     private List<House> houses;
 
+    @Builder.Default
+    private Long bankAccount = 0L;
 }

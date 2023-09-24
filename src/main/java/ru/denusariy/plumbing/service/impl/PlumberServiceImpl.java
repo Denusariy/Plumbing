@@ -5,11 +5,15 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.denusariy.plumbing.domain.dto.request.HouseToRepairDto;
 import ru.denusariy.plumbing.domain.dto.request.PlumberRequestDTO;
 import ru.denusariy.plumbing.domain.dto.response.PlumberResponseDTO;
+import ru.denusariy.plumbing.domain.dto.response.RepairedHouseDto;
+import ru.denusariy.plumbing.domain.entity.House;
 import ru.denusariy.plumbing.domain.entity.Plumber;
 import ru.denusariy.plumbing.exception.PlumberNotFoundException;
 import ru.denusariy.plumbing.repository.PlumberRepository;
+import ru.denusariy.plumbing.service.HouseService;
 import ru.denusariy.plumbing.service.PlumberService;
 
 @Service
@@ -43,6 +47,8 @@ public class PlumberServiceImpl implements PlumberService {
         log.info("Удален сантехник по имени " + name);
         return name;
     }
+
+
 
     public Plumber convertToEntity(PlumberRequestDTO requestDTO) {
         return modelMapper.map(requestDTO, Plumber.class);

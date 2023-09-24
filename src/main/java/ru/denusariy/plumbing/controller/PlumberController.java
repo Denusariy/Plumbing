@@ -5,14 +5,20 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.denusariy.plumbing.domain.dto.request.PlumberRequestDTO;
 import ru.denusariy.plumbing.domain.dto.response.PlumberResponseDTO;
 import ru.denusariy.plumbing.service.PlumberService;
 
 @RestController
-@RequestMapping("/api/v1/plumber")
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/plumbers")
 public class PlumberController {
     private final PlumberService plumberService;
 
@@ -46,5 +52,4 @@ public class PlumberController {
                 .contentType(MediaType.TEXT_PLAIN)
                 .body(plumberService.delete(id));
     }
-
 }

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.denusariy.plumbing.domain.entity.House;
 
 @Repository
-public interface HouseRepository extends JpaRepository<House, Integer> {
+public interface HouseRepository extends JpaRepository<House, Long> {
 }

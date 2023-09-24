@@ -6,25 +6,46 @@ services:
       context: .
     container_name: plumbing-service
     depends_on:
-      - postgrad
+      - postgres
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgrad:5432/plumbing_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/plumbing_db
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=parolsql
+      - SPRING_DATASOURCE_PASSWORD=pwd
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
     ports:
-      - "8585:8080/tcp"
+      - "7777:7777/tcp"
 
-  postgrad:
+  postgres:
     image: postgres:15.1
-    container_name: postgrad
+    container_name: postgres
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=parolsql
+      - POSTGRES_PASSWORD=pwd
       - POSTGRES_DB=plumbing_db
     volumes:
-      - ./postgresdata:/var/lib/postgresql/data
+      - /Users/m.muradov/Desktop/k6_workshop/pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432/tcp"
+
+
+  prometheus:
+    image: prom/prometheus:v2.44.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:9.5.2
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
 
