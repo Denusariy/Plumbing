@@ -82,7 +82,7 @@ public class HouseController {
     }
 
     @PostMapping(value = "/repair-house", produces = {MediaType.APPLICATION_JSON_VALUE})
-    @Operation(summary = "Удаление сантехника по id. Возвращает имя уволенного сантехника", responses = {
+    @Operation(summary = "Починить дом - выполнение сантех работ", responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND")
     })

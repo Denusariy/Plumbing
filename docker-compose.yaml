@@ -1,10 +1,17 @@
 version: '3.9'
+
+networks:
+  k6:
+  plumbing:
+
 services:
   plumbing-service:
     image: plumbing-api:latest
     build:
       context: .
     container_name: plumbing-service
+    networks:
+      - plumbing
     depends_on:
       - postgres
     environment:
@@ -19,6 +26,8 @@ services:
   postgres:
     image: postgres:15.1
     container_name: postgres
+    networks:
+      - plumbing
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pwd
@@ -32,20 +41,30 @@ services:
   prometheus:
     image: prom/prometheus:v2.44.0
     container_name: prometheus
+    networks:
+      - plumbing
+      - k6
+    command:
+      - --web.enable-remote-write-receiver
+      - --enable-feature=native-histograms
+      - --config.file=/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     volumes:
       - ./monitoring/prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
-    image: grafana/grafana:9.5.2
+    image: grafana/grafana:10.1.2
     container_name: grafana
+    networks:
+      - plumbing
+      - k6
     ports:
       - "3000:3000"
     restart: unless-stopped
     environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
     volumes:
-      - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-
+      - ./monitoring/grafana:/etc/grafana/provisioning
