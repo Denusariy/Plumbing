@@ -33,7 +33,7 @@ services:
       - POSTGRES_PASSWORD=pwd
       - POSTGRES_DB=plumbing_db
     volumes:
-      - /Users/m.muradov/Desktop/k6_workshop/pg_data:/var/lib/postgresql/data
+      - ./tabledata/init-data.sql:/docker-entrypoint-initdb.d/init-data.sql
     ports:
       - "5432:5432/tcp"
 
