@@ -68,3 +68,12 @@ services:
       - GF_AUTH_BASIC_ENABLED=false
     volumes:
       - ./monitoring/grafana:/etc/grafana/provisioning
+
+  k6:
+    image: grafana/k6
+    container_name: k6
+    network_mode: host
+    environment:
+      - K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true
+    volumes:
+      - ./k6_demo:/etc/k6_demo
